@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Сергей Мягкий](https://up.htmlacademy.ru/javascript/22/user/1463491).
-* Наставник: `Неизвестно`.
+* Наставник: [Денис Горшков](https://htmlacademy.ru/profile/satrasmatras).
 
 ---
 
