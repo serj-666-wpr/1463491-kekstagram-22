@@ -7,12 +7,9 @@ const generateRandomNumber = (min, max) => {
     errorMessage = 'Значение «до» диапазона меньше, чем значение «от»';
   }
   if (errorMessage) {
-    try {
-      throw new Error(errorMessage);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log(e.name + ': ' + e.message);
-    }
+    new Error(errorMessage);
+    // eslint-disable-next-line no-console
+    console.log(Error.name + ': ' + errorMessage);
     return
   }
   return Math.floor(min + Math.random() * (max + 1 - min));//https://learn.javascript.ru/task/random-int-min-max
