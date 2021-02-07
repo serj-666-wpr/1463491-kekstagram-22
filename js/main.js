@@ -19,7 +19,7 @@ const checkLengthString = (string, maxLength) => string.length <= maxLength
 // eslint-disable-next-line no-console
 console.log(checkLengthString('Hello my friend', 20));
 
-const names = [
+const NAMES = [
   'Артём',
   'Павел',
   'Екатерина',
@@ -46,7 +46,7 @@ const names = [
   'Константин',
   'Игорь',
 ];
-const descriptions = [
+const DESCRIPTION = [
   'Цветочный магазин',
   'Зеленые просторы Кубани',
   'Хроника пикируещего бомбардировщика',
@@ -64,7 +64,7 @@ const descriptions = [
   'Облачный день',
   'Вечера Касталии',
 ];
-const messages = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -73,43 +73,51 @@ const messages = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const getRandomArrayElement = (elements) => {
-  return elements[generateRandomNumber(0, elements.length - 1)];
+const getRandomArrayElement = (array) => {
+  return array[generateRandomNumber(0, array.length - 1)];
 };
 
-const getRandomNotRepeatNumberArray = (length) => {
-  let NotRepeatNumberArray = [];
-  for (let i = 1 ; i <= length ; i++) {
-    NotRepeatNumberArray.push(i);
+const MIN_NUMBERS_AVATARS = 15;
+const MAX_NUMBERS_AVATARS = 200;
+const generateComments = (numberOfComments) => {
+  let comments = [];
+  for (let j = 0 ; j < generateRandomNumber(1,numberOfComments) ; j++) {
+    comments.push({
+      id: j + 1,
+      avatar: 'img/avatar-' + generateRandomNumber(MIN_NUMBERS_AVATARS,MAX_NUMBERS_AVATARS) + '.svg',
+      message: getRandomArrayElement(MESSAGES),
+      name: getRandomArrayElement(NAMES),
+    });
   }
-  let RandomNotRepeatNumberArray = [];
-  while (NotRepeatNumberArray.length) {
-    let pos = Math.random()*NotRepeatNumberArray.length;
-    let element = NotRepeatNumberArray.splice(pos, 1)[0];
-    RandomNotRepeatNumberArray.push(element);
-  }
-  return RandomNotRepeatNumberArray;
+  return comments;
 };
 
-const generatePhotoDescription = () => {
+const NUMBER_DESCRIPTIONS = 25;
+const NUMBER_COMMENTS = 5;
+const MIN_NUMBER_LIKES = 15;
+const MAX_NUMBER_LIKES = 200;
+const MIN_NUMBER_PHOTOS = 1;
+const MAX_NUMBER_PHOTOS = 25;
+const generateOnePhotoDescription = () => {
+  let comments = generateComments(NUMBER_COMMENTS);
+  let photoDescription = {
+    id: 1,
+    url: 'photos/' + generateRandomNumber(MIN_NUMBER_PHOTOS,MAX_NUMBER_PHOTOS) + '.jpg',
+    description: getRandomArrayElement(DESCRIPTION),
+    likes: generateRandomNumber(MIN_NUMBER_LIKES,  MAX_NUMBER_LIKES),
+    comments,
+  }
+  return photoDescription;
+};
+const generatePhotoDescriptions = (numberOfDescriptions) => {
   let photoDescriptions = [];
-  let randomPhoto = getRandomNotRepeatNumberArray(25);
-  for (let i = 1 ; i < 26 ; i++) {
-    let comments = [];
-    let randomId = getRandomNotRepeatNumberArray(100);
-    for (let j = 0 ; j < generateRandomNumber(1,5) ; j++) {
-      comments.push({
-        id: randomId[j],
-        avatar: 'img/avatar-' + generateRandomNumber(1,6) + '.svg',
-        message: getRandomArrayElement(messages),
-        name: getRandomArrayElement(names),
-      });
-    }
+  for (let i = 0 ; i < numberOfDescriptions ; i++) {
+    let comments = generateComments(NUMBER_COMMENTS);
     photoDescriptions.push({
-      id: i,
-      url: 'photos/' + randomPhoto[i - 1] + '.jpg',
-      description: getRandomArrayElement(descriptions),
-      likes: generateRandomNumber(15, 200),
+      id: i + 1,
+      url: 'photos/' + (i + 1) + '.jpg',
+      description: getRandomArrayElement(DESCRIPTION),
+      likes: generateRandomNumber(MIN_NUMBER_LIKES,  MAX_NUMBER_LIKES),
       comments,
     })
   }
@@ -117,4 +125,6 @@ const generatePhotoDescription = () => {
 };
 
 // eslint-disable-next-line no-console
-console.log(generatePhotoDescription());
+console.log(generateOnePhotoDescription());
+// eslint-disable-next-line no-console
+console.log(generatePhotoDescriptions(NUMBER_DESCRIPTIONS));
