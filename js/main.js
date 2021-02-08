@@ -72,59 +72,62 @@ const MESSAGES = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
-
+//Случайный элемент массива
 const getRandomArrayElement = (array) => {
   return array[generateRandomNumber(0, array.length - 1)];
 };
 
-const MIN_NUMBERS_AVATARS = 15;
-const MAX_NUMBERS_AVATARS = 200;
-const generateComments = (numberOfComments) => {
-  let comments = [];
-  for (let j = 0 ; j < generateRandomNumber(1,numberOfComments) ; j++) {
-    comments.push({
-      id: j + 1,
-      avatar: 'img/avatar-' + generateRandomNumber(MIN_NUMBERS_AVATARS,MAX_NUMBERS_AVATARS) + '.svg',
-      message: getRandomArrayElement(MESSAGES),
-      name: getRandomArrayElement(NAMES),
-    });
+const Avatars = {
+  MIN: 1,
+  MAX: 6,
+}
+//Генерация комментария
+const generateComment = (id = 1, numberOfComments = 1, itemOnAccount = 1) => {
+  const comment = {
+    id: id + numberOfComments * (itemOnAccount - 1),
+    avatar: `img/avatar-${generateRandomNumber(Avatars.MIN,Avatars.MAX)}.svg`,
+    message: getRandomArrayElement(MESSAGES),
+    name: getRandomArrayElement(NAMES),
+  };
+  return comment;
+};
+//Генерация комментариев
+const generateMultipleComments = (numberOfComments, itemOnAccount) => {
+  const comments = [];
+  for (let j = 1 ; j < numberOfComments + 1 ; j++) {
+    comments.push(generateComment(j, numberOfComments, itemOnAccount));
   }
   return comments;
 };
 
-const NUMBER_DESCRIPTIONS = 25;
+const DESCRIPTIONS_COUNT = 25;
 const NUMBER_COMMENTS = 5;
-const MIN_NUMBER_LIKES = 15;
-const MAX_NUMBER_LIKES = 200;
-const MIN_NUMBER_PHOTOS = 1;
-const MAX_NUMBER_PHOTOS = 25;
-const generateOnePhotoDescription = () => {
-  let comments = generateComments(NUMBER_COMMENTS);
-  let photoDescription = {
-    id: 1,
-    url: 'photos/' + generateRandomNumber(MIN_NUMBER_PHOTOS,MAX_NUMBER_PHOTOS) + '.jpg',
+const Likes = {
+  MIN: 15,
+  MAX: 200,
+};
+//Генерация описания
+const generatePhotoDescription = (id = 1) => {
+  const photoDescription = {
+    id: id,
+    url: `photos/${id}.jpg`,
     description: getRandomArrayElement(DESCRIPTION),
-    likes: generateRandomNumber(MIN_NUMBER_LIKES,  MAX_NUMBER_LIKES),
-    comments,
-  }
+    likes: generateRandomNumber(Likes.MIN, Likes.MAX),
+    comments: generateMultipleComments(NUMBER_COMMENTS, id),
+  };
   return photoDescription;
 };
-const generatePhotoDescriptions = (numberOfDescriptions) => {
-  let photoDescriptions = [];
-  for (let i = 0 ; i < numberOfDescriptions ; i++) {
-    let comments = generateComments(NUMBER_COMMENTS);
-    photoDescriptions.push({
-      id: i + 1,
-      url: 'photos/' + (i + 1) + '.jpg',
-      description: getRandomArrayElement(DESCRIPTION),
-      likes: generateRandomNumber(MIN_NUMBER_LIKES,  MAX_NUMBER_LIKES),
-      comments,
-    })
+//Генерация описаний
+const generateMultiplePhotoDescriptions = (numberOfDescriptions) => {
+  const photoDescriptions = [];
+  for (let i = 1 ; i < numberOfDescriptions + 1 ; i++) {
+    photoDescriptions.push(generatePhotoDescription(i))
   }
   return photoDescriptions;
 };
 
+
 // eslint-disable-next-line no-console
-console.log(generateOnePhotoDescription());
+console.log(generatePhotoDescription());
 // eslint-disable-next-line no-console
-console.log(generatePhotoDescriptions(NUMBER_DESCRIPTIONS));
+console.log(generateMultiplePhotoDescriptions(DESCRIPTIONS_COUNT));
