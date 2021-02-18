@@ -11,12 +11,7 @@ const generateRandomNumber = (min, max) => {
   }
   return Math.floor(min + Math.random() * (max + 1 - min));
 }
-// eslint-disable-next-line no-console
-console.log(generateRandomNumber(30, 40));
-
 
 const checkLengthString = (string, maxLength) => string.length <= maxLength
-// eslint-disable-next-line no-console
-console.log(checkLengthString('Hello my friend', 20));
 
-export { generateRandomNumber,checkLengthString }
+export { generateRandomNumber, checkLengthString }
