@@ -3,7 +3,7 @@ const popup = document.querySelector('.big-picture');
 const popupClose = document.querySelector('#picture-cancel');
 
 const isEscape = (evt) => {
-  return evt.key === ('Escape' || 'Esc');
+  return evt.key === 'Escape' || evt.key === 'Esc';
 };
 const onPopupEscKeydown = (evt) => {
   if (isEscape(evt)) {

@@ -9,17 +9,17 @@ const commentsCounter = popup.querySelector('.comments-count');
 const commentsCounterBlock = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
 
-const fillFullScreenImage = (picture, pictureDescription, pictureComments) => {
-  popupImage.src = picture.querySelector('.picture__img').src;
-  commentsCounter.textContent = picture.querySelector('.picture__comments').textContent;
-  likesCounter.textContent = picture.querySelector('.picture__likes').textContent;
-  captionImage.textContent = pictureDescription;
-  fillFullScreenImageComments(pictureComments);
+const fillFullScreenImage = (photo) => {
+  popupImage.src = photo.url;
+  commentsCounter.textContent = photo.comments.length;
+  likesCounter.textContent = photo.likes;
+  captionImage.textContent = photo.description;
+  fillFullScreenImageComments(photo.comments);
 };
 
-const onPictureClick = (picture, pictureDescription, pictureComments) => {
+const onPictureClick = (photo) => {
   openPopup();
-  fillFullScreenImage(picture, pictureDescription, pictureComments);
+  fillFullScreenImage(photo);
   commentsCounterBlock.classList.add('hidden');
   commentsLoader.classList.add('hidden');
 };
