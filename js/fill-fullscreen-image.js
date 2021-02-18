@@ -16,6 +16,7 @@ const fillFullScreenImage = (picture, pictureDescription, pictureComments) => {
   captionImage.textContent = pictureDescription;
   fillFullScreenImageComments(pictureComments);
 };
+
 const onPictureClick = (picture, pictureDescription, pictureComments) => {
   openPopup();
   fillFullScreenImage(picture, pictureDescription, pictureComments);
