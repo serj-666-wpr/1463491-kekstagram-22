@@ -1,8 +1,8 @@
 import { fillFullScreenImageComments } from './fullscreen-image-comments.js'
-import { openPopup } from './fullscreen-popup.js'
+import { openPopup } from './popup.js'
 
 const popup = document.querySelector('.big-picture');
-const popupImage = popup.querySelector('.big-picture__img').querySelector('img');
+const popupImage = popup.querySelector('.big-picture__img img');
 const likesCounter = popup.querySelector('.likes-count');
 const captionImage = popup.querySelector('.social__caption');
 const commentsCounter = popup.querySelector('.comments-count');

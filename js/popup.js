@@ -5,6 +5,7 @@ const popupClose = document.querySelector('#picture-cancel');
 const isEscape = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
+
 const onPopupEscKeydown = (evt) => {
   if (isEscape(evt)) {
     evt.preventDefault();
@@ -26,4 +27,4 @@ const closePopup = () => {
   popupClose.removeEventListener('click', closePopup);
 };
 
-export { openPopup };
+export { openPopup, isEscape };
