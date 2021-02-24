@@ -1,17 +1,29 @@
 /* global noUiSlider:readonly */
-const image = document.querySelector('.img-upload__preview').querySelector('img');
+const image = document.querySelector('.img-upload__preview img');
 const effects = document.querySelectorAll('.effects__radio');
-const slider= document.querySelector('.effect-level__slider');
-const effectLevelValue = document.querySelector('.effect-level__value');
+const sliderContainer = document.querySelector('.img-upload__effect-level');
+const slider = sliderContainer.querySelector('.effect-level__slider');
+const effectLevelValue = sliderContainer.querySelector('.effect-level__value');
+
+const MIN_RANGE = 0;
+const MIN_RANGE_HEAT = 1;
+
+const MAX_RANGE = 1;
+const MAX_RANGE_MARVIN = 100;
+const MAX_RANGE_PHOBOS = 3;
+const MAX_RANGE_HEAT = 3;
+
+const SLIDER_STEP = 0.1;
+const SLIDER_STEP_MARVIN = 1;
 
 const createSlider = () => {
   noUiSlider.create(slider, {
     range: {
-      min: 0,
-      max: 1,
+      min: MIN_RANGE,
+      max: MAX_RANGE,
     },
-    start: 1,
-    step: 0.1,
+    start: MAX_RANGE,
+    step: SLIDER_STEP,
     connect: 'lower',
     format: {
       to: function (value) {
@@ -27,98 +39,113 @@ const createSlider = () => {
   });
 }
 
-const changeSliderOptionsForDefault = () => {
-  slider.noUiSlider.updateOptions({
-    range: {
-      min: 0,
-      max: 1,
-    },
-    start: 1,
-    step: 0.1,
-  });
+const filter = {
+  DEFAULT: 'default',
+  CHROME: 'chrome',
+  SEPIA: 'sepia',
+  MARVIN: 'marvin',
+  PHOBOS: 'phobos',
+  HEAT: 'heat',
 };
 
-const changeSliderOptionsForMarvin = () => {
-  slider.noUiSlider.updateOptions({
+const filterSliderParams = {
+  'default': {
     range: {
-      min: 0,
-      max: 100,
+      min: MIN_RANGE,
+      max: MAX_RANGE,
     },
-    start: 100,
-    step: 1,
-  });
+    start: MAX_RANGE,
+    step: SLIDER_STEP,
+  },
+
+  'marvin': {
+    range: {
+      min: MIN_RANGE,
+      max: MAX_RANGE_MARVIN,
+    },
+    start: MAX_RANGE_MARVIN,
+    step: SLIDER_STEP_MARVIN,
+  },
+
+  'phobos': {
+    range: {
+      min: MIN_RANGE,
+      max: MAX_RANGE_PHOBOS,
+    },
+    start: MAX_RANGE_PHOBOS,
+    step: SLIDER_STEP,
+  },
+
+  'heat': {
+    range: {
+      min: MIN_RANGE_HEAT,
+      max: MAX_RANGE_HEAT,
+    },
+    start: MAX_RANGE_HEAT,
+    step: SLIDER_STEP,
+  },
 };
 
-const changeSliderOptionsForPhobos = () => {
-  slider.noUiSlider.updateOptions({
-    range: {
-      min: 0,
-      max: 3,
-    },
-    start: 3,
-    step: 0.1,
-  });
-};
-
-const changeSliderOptionsForHeat = () => {
-  slider.noUiSlider.updateOptions({
-    range: {
-      min: 1,
-      max: 3,
-    },
-    start: 3,
-    step: 0.1,
-  });
-};
-
-const addSlider = (effect) => {
-
-  if (effect == 'marvin') {
-    changeSliderOptionsForMarvin();
-  } else if (effect == 'phobos') {
-    changeSliderOptionsForPhobos();
-  } else if (effect == 'heat') {
-    changeSliderOptionsForHeat();
+const changeSliderParams = (effect) => {
+  if (effect === 'marvin') {
+    slider.noUiSlider.updateOptions(filterSliderParams[filter.MARVIN]);
+  } else if (effect === 'phobos') {
+    slider.noUiSlider.updateOptions(filterSliderParams[filter.PHOBOS]);
+  } else if (effect === 'heat') {
+    slider.noUiSlider.updateOptions(filterSliderParams[filter.HEAT]);
   } else {
-    changeSliderOptionsForDefault();
+    slider.noUiSlider.updateOptions(filterSliderParams[filter.DEFAULT]);
   }
+};
+
+const getImageStyleFilter = (effect, values, handle) => {
+  switch (effect) {
+    case filter.CHROME:
+      return `grayscale(${values[handle]})`;
+    case filter.SEPIA:
+      return `sepia(${values[handle]})`;
+    case filter.MARVIN:
+      return `invert(${values[handle]}%)`;
+    case filter.PHOBOS:
+      return `blur(${values[handle]}px)`;
+    case filter.HEAT:
+      return `brightness(${values[handle]})`;
+  }
+};
+
+const changeImageEffects = (effect) => {
+  changeSliderParams(effect);
 
   slider.noUiSlider.on('update', (values, handle) => {
     effectLevelValue.value = values[handle];
-
-    if (effect == 'chrome') {
-      image.style.filter = `grayscale(${values[handle]})`;
-    } else if (effect == 'sepia') {
-      image.style.filter = `sepia(${values[handle]})`;
-    } else if (effect == 'marvin') {
-      image.style.filter = `invert(${values[handle]}%)`;
-    } else if (effect == 'phobos') {
-      image.style.filter = `blur(${values[handle]}px)`;
-    } else if (effect == 'heat') {
-      image.style.filter = `brightness(${values[handle]})`;
-    }
+    image.style.filter = getImageStyleFilter(effect, values, handle);
   });
 };
 
-const addImageEffects = () => {
-  createSlider();
-  slider.style.display = 'none';
+const renderFilterVariants = () => {
   effects.forEach((effect) => {
     effect.addEventListener('click', () => {
-      if (effect.value == 'none') {
-        slider.style.display = 'none';
+      if (effect.value === 'none') {
+        sliderContainer.style.display = 'none';
         image.style.filter = 'none';
       } else {
-        slider.noUiSlider.destroy();
-        image.classList = '';
-
         image.classList.add(`effects__preview--${effect.value}`);
-        slider.style.display = 'block';
-        createSlider();
-        addSlider(effect.value);
+        sliderContainer.style.display = 'block';
+        changeImageEffects(effect.value);
       }
     });
   });
 }
 
-export { addImageEffects };
+const addImageEffects = () => {
+  createSlider();
+  sliderContainer.style.display = 'none';
+  renderFilterVariants();
+}
+
+const removeImageEffects = () => {
+  slider.noUiSlider.destroy();
+  image.style.filter = 'none';
+};
+
+export { addImageEffects, removeImageEffects };

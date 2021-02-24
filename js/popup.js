@@ -1,28 +1,30 @@
 const page = document.querySelector('body');
+const popup = document.querySelector('.big-picture');
+const popupClose = document.querySelector('#picture-cancel');
 
 const isEscape = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
 };
 
-const onPopupEscKeydown = (evt, popup, popupClose) => {
+const onPopupEscKeydown = (evt) => {
   if (isEscape(evt)) {
     evt.preventDefault();
-    closePopup(popup, popupClose);
+    closePopup();
   }
 };
 
-const openPopup = (popup, popupClose) => {
+const openPopup = () => {
   popup.classList.remove('hidden');
-  document.addEventListener('keydown', (evt) => onPopupEscKeydown(evt, popup, popupClose));
+  document.addEventListener('keydown', onPopupEscKeydown);
   page.classList.add('modal-open');
-  popupClose.addEventListener('click', () => closePopup(popup, popupClose));
+  popupClose.addEventListener('click', closePopup);
 };
 
-const closePopup = (popup, popupClose) => {
+const closePopup = () => {
   popup.classList.add('hidden');
-  document.removeEventListener('keydown', (evt) => onPopupEscKeydown(evt, popup, popupClose));
+  document.removeEventListener('keydown', onPopupEscKeydown);
   page.classList.remove('modal-open');
-  popupClose.removeEventListener('click', () => closePopup(popup, popupClose));
+  popupClose.removeEventListener('click', closePopup);
 };
 
-export { openPopup };
+export { openPopup, isEscape };

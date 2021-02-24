@@ -2,8 +2,7 @@ import { fillFullScreenImageComments } from './fullscreen-image-comments.js'
 import { openPopup } from './popup.js'
 
 const popup = document.querySelector('.big-picture');
-const popupClose = document.querySelector('#picture-cancel');
-const popupImage = popup.querySelector('.big-picture__img').querySelector('img');
+const popupImage = popup.querySelector('.big-picture__img img');
 const likesCounter = popup.querySelector('.likes-count');
 const captionImage = popup.querySelector('.social__caption');
 const commentsCounter = popup.querySelector('.comments-count');
@@ -19,7 +18,7 @@ const fillFullScreenImage = (photo) => {
 };
 
 const onPictureClick = (photo) => {
-  openPopup(popup, popupClose);
+  openPopup();
   fillFullScreenImage(photo);
   commentsCounterBlock.classList.add('hidden');
   commentsLoader.classList.add('hidden');
