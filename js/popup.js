@@ -27,4 +27,4 @@ const closePopup = () => {
   popupClose.removeEventListener('click', closePopup);
 };
 
-export { openPopup, isEscape };
+export { openPopup, isEscape, onPopupEscKeydown };
