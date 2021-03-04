@@ -39,7 +39,7 @@ const createSlider = () => {
   });
 }
 
-const filter = {
+const Filter = {
   DEFAULT: 'default',
   CHROME: 'chrome',
   SEPIA: 'sepia',
@@ -48,7 +48,7 @@ const filter = {
   HEAT: 'heat',
 };
 
-const filterSliderParams = {
+const FilterSliderParams = {
   'default': {
     range: {
       min: MIN_RANGE,
@@ -87,28 +87,32 @@ const filterSliderParams = {
 };
 
 const changeSliderParams = (effect) => {
-  if (effect === 'marvin') {
-    slider.noUiSlider.updateOptions(filterSliderParams[filter.MARVIN]);
-  } else if (effect === 'phobos') {
-    slider.noUiSlider.updateOptions(filterSliderParams[filter.PHOBOS]);
-  } else if (effect === 'heat') {
-    slider.noUiSlider.updateOptions(filterSliderParams[filter.HEAT]);
-  } else {
-    slider.noUiSlider.updateOptions(filterSliderParams[filter.DEFAULT]);
+  switch (effect) {
+    case Filter.MARVIN:
+      slider.noUiSlider.updateOptions(FilterSliderParams[Filter.MARVIN]);
+      break;
+    case Filter.PHOBOS:
+      slider.noUiSlider.updateOptions(FilterSliderParams[Filter.PHOBOS]);
+      break;
+    case Filter.HEAT:
+      slider.noUiSlider.updateOptions(FilterSliderParams[Filter.HEAT]);
+      break;
+    default:
+      slider.noUiSlider.updateOptions(FilterSliderParams[Filter.DEFAULT]);
   }
 };
 
 const getImageStyleFilter = (effect, values, handle) => {
   switch (effect) {
-    case filter.CHROME:
+    case Filter.CHROME:
       return `grayscale(${values[handle]})`;
-    case filter.SEPIA:
+    case Filter.SEPIA:
       return `sepia(${values[handle]})`;
-    case filter.MARVIN:
+    case Filter.MARVIN:
       return `invert(${values[handle]}%)`;
-    case filter.PHOBOS:
+    case Filter.PHOBOS:
       return `blur(${values[handle]}px)`;
-    case filter.HEAT:
+    case Filter.HEAT:
       return `brightness(${values[handle]})`;
   }
 };

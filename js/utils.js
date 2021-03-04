@@ -14,4 +14,8 @@ const generateRandomNumber = (min, max) => {
 
 const checkLengthString = (string, maxLength) => string.length <= maxLength
 
-export { generateRandomNumber, checkLengthString }
+const stopEvent = (evt) => {
+  evt.stopPropagation();
+};
+
+export { generateRandomNumber, checkLengthString, stopEvent }

@@ -34,10 +34,9 @@ const onDecreaseScale = () => {
   changeImageSize(-SCALE_STEP);
 };
 
-const resetScale = () => {
+const addScaleHandlers = () => {
   imageSizeValue = INITIAL_SCALE;
 
-  imageSize.value = `${INITIAL_SCALE}%`;
   imageSize.setAttribute('value', `${imageSizeValue}%`);
   image.style.transform = `scale(${imageSizeValue/DIVIDER})`;
   imageSizeButtonBigger.disabled = true;
@@ -46,9 +45,9 @@ const resetScale = () => {
   imageSizeButtonSmaller.addEventListener('click', onDecreaseScale);
 };
 
-const removeScaleOptions = () => {
+const removeScaleHandlers = () => {
   imageSizeButtonBigger.removeEventListener('click', onIncreaseScale);
   imageSizeButtonSmaller.removeEventListener('click', onDecreaseScale);
 };
 
-export { resetScale, removeScaleOptions };
+export { addScaleHandlers, removeScaleHandlers };
