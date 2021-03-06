@@ -1,8 +1,8 @@
-import { generateMultiplePhotoDescriptions } from './data.js';
-import { renderImages } from './render-images.js';
+import { importImageData } from './import-data.js';
 import { addUploadHandlers } from './image-download.js';
+import { postImage } from './image-posting.js';
 
-const DESCRIPTIONS_COUNT = 25;
-const photoDescriptions = generateMultiplePhotoDescriptions(DESCRIPTIONS_COUNT);
-renderImages(photoDescriptions);
+importImageData();
 addUploadHandlers();
+postImage();
+
