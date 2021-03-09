@@ -1,10 +1,8 @@
+import { isEscape } from './utils.js';
+
 const page = document.querySelector('body');
 const popup = document.querySelector('.big-picture');
 const popupClose = document.querySelector('#picture-cancel');
-
-const isEscape = (evt) => {
-  return evt.key === 'Escape' || evt.key === 'Esc';
-};
 
 const onPopupEscKeydown = (evt) => {
   if (isEscape(evt)) {
@@ -27,4 +25,4 @@ const closePopup = () => {
   popupClose.removeEventListener('click', closePopup);
 };
 
-export { openPopup, isEscape, onPopupEscKeydown };
+export { openPopup, onPopupEscKeydown };

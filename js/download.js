@@ -1,7 +1,6 @@
-import { isEscape } from './popup.js';
-import { addImageEffects, removeImageEffects } from './image-effects.js';
-import { addScaleHandlers, removeScaleHandlers } from './image-scale.js';
-import { stopEvent } from './utils.js';
+import { addImageEffects, removeImageEffects } from './effects.js';
+import { addScaleHandlers, removeScaleHandlers } from './scale.js';
+import { stopEvent, isEscape } from './utils.js';
 
 const page = document.querySelector('body');
 const uploadFile = document.querySelector('#upload-file');

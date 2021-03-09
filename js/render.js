@@ -1,4 +1,4 @@
-import { onPictureClick } from './fill-fullscreen-image.js';
+import { onPictureClick } from './fill-fullscreen.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesList = document.querySelector('.pictures');

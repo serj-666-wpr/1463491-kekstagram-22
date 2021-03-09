@@ -1,4 +1,4 @@
-import { fillFullScreenImageComments } from './fullscreen-image-comments.js'
+import { fillFullScreenImageComments } from './fullscreen-comments.js'
 import { openPopup } from './popup.js'
 
 const popup = document.querySelector('.big-picture');
