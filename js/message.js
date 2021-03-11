@@ -1,27 +1,50 @@
-const ERROR_POPUP_TIME = 5000;
+import { isEscape } from './utils.js';
 
-const showErrorMessage = (message) => {
-  const errorPopup = document.createElement('div');
-  errorPopup.style.zIndex = 100;
-  errorPopup.style.position = 'fixed';
-  errorPopup.style.left = '50%';
-  errorPopup.style.top = '50%';
-  errorPopup.style.transform = 'translate(-50%, -50%)';
-  errorPopup.style.border = '4px solid yellow';
-  errorPopup.style.borderRadius = '10px';
-  errorPopup.style.padding = '10px 5px';
-  errorPopup.style.fontSize = '23px';
-  errorPopup.style.lineHeight = '1.3em';
-  errorPopup.style.color = 'black';
-  errorPopup.style.backgroundColor = 'white';
+const mainBlock = document.querySelector('main');
 
-  errorPopup.textContent = message;
-
-  document.body.append(errorPopup);
-
-  setTimeout(() => {
-    errorPopup.remove();
-  }, ERROR_POPUP_TIME);
+const MessageType = {
+  SUCCESS: document.querySelector('#success').content.querySelector('.success').cloneNode(true),
+  ERROR: document.querySelector('#error').content.querySelector('.error').cloneNode(true),
 }
 
-export { showErrorMessage };
+const showMessage = (messageType) => {
+  const fillMessage = () => {
+    mainBlock.appendChild(messageType);
+
+    const buttonClosePopup = messageType.querySelector('button');
+
+    buttonClosePopup.addEventListener('click', closePopup);
+    document.addEventListener('keydown', onPopupEscKeydown);
+    mainBlock.addEventListener('click', onCloseClickOutside);
+  }
+
+  const onPopupEscKeydown = (evt) => {
+    if (isEscape(evt)) {
+      evt.preventDefault();
+      closePopup();
+    }
+  };
+
+  const closePopup = () => {
+    mainBlock.removeChild(messageType);
+    document.removeEventListener('keydown', onPopupEscKeydown);
+    mainBlock.removeEventListener('click', onCloseClickOutside);
+  }
+
+  const onCloseClickOutside = (evt) => {
+    if (evt.target === messageType.querySelector('div')) return;
+    closePopup();
+  }
+
+  fillMessage();
+}
+
+const showError = () => {
+  showMessage(MessageType.ERROR);
+}
+
+const showSuccess = () => {
+  showMessage(MessageType.SUCCESS);
+}
+
+export { showError, showSuccess };

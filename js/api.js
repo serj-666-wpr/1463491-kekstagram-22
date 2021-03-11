@@ -1,38 +1,32 @@
-import { showErrorMessage } from './message.js';
-import { showPopupSuccess } from './success-popup.js';
-import { showPopupError } from './error-popup.js';
+import { showMessageErrorLoad } from './message-error-load.js';
+import { showError, showSuccess } from './message.js';
 import { closePopup } from './download.js';
 
-const form = document.querySelector('.img-upload__form');
+const BASE_URL = 'https://22.javascript.pages.academy/kekstagram';
 
-const addImageSubmitHandler  = (url) => {
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    const formData = new FormData(form);
-
-    fetch(
-      url,
-      {
-        method: 'POST',
-        body: formData,
-      },
-    )
-      .then((response) => {
-        closePopup();
-        if (response.ok) {
-          showPopupSuccess();
-        } else {
-          throw new Error();
-        }
-      })
-      .catch(() => {
-        showPopupError();
-      });
-  });
+const sendForm = (formData) => {
+  fetch(
+    BASE_URL,
+    {
+      method: 'POST',
+      body: formData,
+    },
+  )
+    .then((response) => {
+      closePopup();
+      if (response.ok) {
+        showSuccess();
+      } else {
+        throw new Error();
+      }
+    })
+    .catch(() => {
+      showError();
+    });
 }
 
-const loadPhotos = (url) => {
-  return fetch(url)
+const loadPhotos = () => {
+  return fetch(`${BASE_URL}/data`)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -40,8 +34,8 @@ const loadPhotos = (url) => {
       throw new Error();
     })
     .catch(() => {
-      showErrorMessage('Не удалось загрузить фотографии. Перезагрузите страницу');
+      showMessageErrorLoad('Не удалось загрузить фотографии. Перезагрузите страницу');
     });
 }
 
-export { addImageSubmitHandler, loadPhotos };
+export { sendForm, loadPhotos };

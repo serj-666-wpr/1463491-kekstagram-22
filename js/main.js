@@ -1,15 +1,15 @@
-import { loadPhotos, addImageSubmitHandler } from './api.js';
+import { loadPhotos } from './api.js';
+import { addImageSubmitHandler } from './form.js';
 import { addUploadHandlers } from './download.js';
 import { renderImages } from './render.js';
 
-const BASE_URL = 'https://22.javascript.pages.academy/kekstagram';
 const DESCRIPTIONS_COUNT = 25;
 
-loadPhotos(`${BASE_URL}/data`)
+loadPhotos()
   .then((descriptions) => {
     renderImages(descriptions.slice(0, DESCRIPTIONS_COUNT));
   });
 
 addUploadHandlers();
-addImageSubmitHandler(BASE_URL);
+addImageSubmitHandler();
 
