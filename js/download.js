@@ -1,7 +1,6 @@
-import { isEscape } from './popup.js';
-import { addImageEffects, removeImageEffects } from './image-effects.js';
-import { addScaleHandlers, removeScaleHandlers } from './image-scale.js';
-import { stopEvent } from './utils.js';
+import { addImageEffects, removeImageEffects } from './effects.js';
+import { addScaleHandlers, removeScaleHandlers } from './scale.js';
+import { stopEvent, isEscape } from './utils.js';
 
 const page = document.querySelector('body');
 const uploadFile = document.querySelector('#upload-file');
@@ -22,7 +21,7 @@ const removePropagation = () => {
 
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_HASHTAGS_NUMBER = 5;
-const ALLOWED_SYMBOLS =  /^[#(?=a-z0-9)a-z0-9]+$/;
+const ALLOWED_SYMBOLS =  /^#[a-z0-9а-я]+$/;
 
 const validHashtags = () => {
   const hashtags = hashtagInput.value
@@ -84,6 +83,8 @@ const closePopup = () => {
   page.classList.remove('modal-open');
   imageEditPopupClose.removeEventListener('click', closePopup);
   uploadFile.value = '';
+  hashtagInput.value = '';
+  commentInput.value = '';
   removeScaleHandlers();
   removeImageEffects();
   removePropagation();
@@ -91,9 +92,6 @@ const closePopup = () => {
 };
 
 const addUploadHandlers = () => {
-  //
-  // imageEditPopup.classList.remove('hidden');
-  //
   uploadFile.addEventListener('change', () => {
     openPopup();
     addScaleHandlers();

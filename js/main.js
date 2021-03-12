@@ -1,8 +1,15 @@
-import { generateMultiplePhotoDescriptions } from './data.js';
-import { renderImages } from './render-images.js';
-import { addUploadHandlers } from './image-download.js';
+import { loadPhotos } from './api.js';
+import { addImageSubmitHandler } from './form.js';
+import { addUploadHandlers } from './download.js';
+import { renderImages } from './render.js';
 
 const DESCRIPTIONS_COUNT = 25;
-const photoDescriptions = generateMultiplePhotoDescriptions(DESCRIPTIONS_COUNT);
-renderImages(photoDescriptions);
+
+loadPhotos()
+  .then((descriptions) => {
+    renderImages(descriptions.slice(0, DESCRIPTIONS_COUNT));
+  });
+
 addUploadHandlers();
+addImageSubmitHandler();
+

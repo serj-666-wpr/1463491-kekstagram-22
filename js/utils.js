@@ -18,4 +18,8 @@ const stopEvent = (evt) => {
   evt.stopPropagation();
 };
 
-export { generateRandomNumber, checkLengthString, stopEvent }
+const isEscape = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+export { generateRandomNumber, checkLengthString, stopEvent, isEscape }
