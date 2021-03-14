@@ -19,6 +19,13 @@ const renderImages = (photos) => {
 
     fragment.appendChild(newPicture);
   });
+
+  Array.from(picturesList.children).forEach((item) => {
+    if (item.classList.contains('picture')) {
+      item.remove();
+    }
+  });
+
   picturesList.appendChild(fragment);
 };
 
