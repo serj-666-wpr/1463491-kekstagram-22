@@ -11,41 +11,43 @@ const showFiltersBlock = () => {
   filtersBlock.classList.remove('img-filters--inactive');
 };
 
-const renderTenRandomImages = (images) => {
+const sortImagesByRandom = (images) => {
   const imagesRandom = images.slice().sort(() => Math.random() - 0.5);
   renderImages(imagesRandom.slice(0, RANDOM_IMAGES_COUNT));
 }
 
 const sortImagesByDiscussion = (pictureA, pictureB) => {
-  const discussionRankA = pictureA.comments.length;
-  const discussionRankB = pictureB.comments.length;
-
-  return discussionRankB - discussionRankA;
+  return pictureB.comments.length - pictureA.comments.length;
 };
 
 const addFilterChangeHandler = (callback) => {
   filterForm.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('img-filters__button')) {
-
+      const {id} = evt.target;
       filterButtons.forEach((button) => {
-        if (button.id !== evt.target.id) {
+        if (button.id !== id) {
           button.classList.remove('img-filters__button--active');
         } else {
           button.classList.add('img-filters__button--active');
         }
       });
 
-      callback(evt.target.id);
+      callback(id);
     }
   });
 };
 
+const FilterType = {
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed',
+};
+
 const renderImagesByFilter = (images, filterType) => {
   switch(filterType) {
-    case 'filter-random':
-      renderTenRandomImages(images);
+    case FilterType.RANDOM:
+      sortImagesByRandom(images);
       break;
-    case 'filter-discussed':
+    case FilterType.DISCUSSED:
       renderImages(images.slice().sort(sortImagesByDiscussion));
       break;
     default:

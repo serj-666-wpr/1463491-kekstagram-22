@@ -1,4 +1,5 @@
 /* global _:readonly */
+// import debounce from 'lodash.debounce';
 import { loadPhotos } from './api.js';
 import { addImageSubmitHandler } from './form.js';
 import { addUploadHandlers } from './download.js';
@@ -6,7 +7,7 @@ import { renderImages } from './render.js';
 import { showFiltersBlock, addFilterChangeHandler, renderImagesByFilter } from './filter.js';
 
 const DESCRIPTIONS_COUNT = 25;
-const RERENDER_DELAY = 500;
+const DEBOUNCE_TIME = 500;
 
 loadPhotos(
   (descriptions) => {
@@ -14,7 +15,7 @@ loadPhotos(
     showFiltersBlock();
     addFilterChangeHandler(_.debounce(
       (filterType) => renderImagesByFilter(descriptions, filterType),
-      RERENDER_DELAY,
+      DEBOUNCE_TIME,
     ));
   },
 );
