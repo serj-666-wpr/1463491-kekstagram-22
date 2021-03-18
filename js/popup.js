@@ -1,4 +1,5 @@
 import { isEscape } from './utils.js';
+import { removeButtonCommentsHandler, discardValueCurrentCounter } from './fullscreen-comments.js'
 
 const page = document.querySelector('body');
 const popup = document.querySelector('.big-picture');
@@ -23,6 +24,8 @@ const closePopup = () => {
   document.removeEventListener('keydown', onPopupEscKeydown);
   page.classList.remove('modal-open');
   popupClose.removeEventListener('click', closePopup);
+  removeButtonCommentsHandler();
+  discardValueCurrentCounter();
 };
 
-export { openPopup, onPopupEscKeydown };
+export { openPopup };

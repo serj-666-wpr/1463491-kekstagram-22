@@ -1,5 +1,4 @@
-import { showError, showTextMessage } from './message.js';
-import { closePopup } from './download.js';
+import { showSuccess, showError, showTextMessage } from './message.js';
 
 const BASE_URL = 'https://22.javascript.pages.academy/kekstagram';
 
@@ -12,9 +11,10 @@ const sendForm = (formData, onSuccess) => {
     },
   )
     .then((response) => {
-      closePopup();
+      onSuccess();
       if (response.ok) {
-        return onSuccess();
+        showSuccess();
+        return;
       }
       throw new Error();
     })
@@ -29,7 +29,7 @@ const loadPhotos = (onSuccess) => {
       }
       throw new Error();
     })
-    .then((descriptions) => onSuccess(descriptions))
+    .then(onSuccess)
     .catch(() => {
       showTextMessage('Не удалось загрузить фотографии. Перезагрузите страницу');
     });

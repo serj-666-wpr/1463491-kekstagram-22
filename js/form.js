@@ -1,5 +1,5 @@
 import { sendForm } from './api.js';
-import { showSuccess } from './message.js';
+import { closePopup } from './download.js';
 
 const form = document.querySelector('.img-upload__form');
 
@@ -8,7 +8,7 @@ const addImageSubmitHandler = () => {
     evt.preventDefault();
     const formData = new FormData(form);
 
-    sendForm(formData, showSuccess);
+    sendForm(formData, closePopup);
   });
 }
 
