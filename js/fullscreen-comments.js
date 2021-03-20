@@ -23,7 +23,7 @@ const addMoreComments = () => {
   Array.from(commentsList.children).forEach((comment) => {
     if (comment.style.display === 'none' && i < NUMBER_VISIBLE_COMMENTS) {
       comment.style.display = 'flex';
-      i += 1;
+      i++;
     }
     if (comment.style.display !== 'none') {
       shownComments += 1;
@@ -34,7 +34,7 @@ const addMoreComments = () => {
   hideCommentsLoader();
 };
 
-const discardValueCurrentCounter = () => {
+const resetValueCurrentCounter = () => {
   commentsCurrentCounter.textContent = NUMBER_VISIBLE_COMMENTS;
 };
 
@@ -53,7 +53,7 @@ const hideComments = (index, comment) => {
 };
 
 const hideCommentsMenuLoader = (comments) => {
-  if (comments.length < 5) {
+  if (comments.length < NUMBER_VISIBLE_COMMENTS) {
     commentsCounterBlock.classList.add('hidden');
     commentsLoader.classList.add('hidden');
   } else {
@@ -83,4 +83,4 @@ const fillFullScreenImageComments = (comments) => {
   hideCommentsMenuLoader(comments);
 };
 
-export { fillFullScreenImageComments, removeButtonCommentsHandler, discardValueCurrentCounter };
+export { fillFullScreenImageComments, removeButtonCommentsHandler, resetValueCurrentCounter };

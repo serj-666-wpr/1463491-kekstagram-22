@@ -1,6 +1,7 @@
 import { addImageEffects, removeImageEffects } from './effects.js';
 import { addScaleHandlers, removeScaleHandlers } from './scale.js';
 import { stopEvent, isEscape } from './utils.js';
+import { upload } from './upload.js';
 
 const page = document.querySelector('body');
 const uploadFile = document.querySelector('#upload-file');
@@ -66,22 +67,22 @@ const removeValidForm = () => {
 const onPopupEscKeydown = (evt) => {
   if (isEscape(evt)) {
     evt.preventDefault();
-    closePopup();
+    closeFormPopup();
   }
 };
 
-const openPopup = () => {
+const openFormPopup = () => {
   imageEditPopup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscKeydown);
   page.classList.add('modal-open');
-  imageEditPopupClose.addEventListener('click', closePopup);
+  imageEditPopupClose.addEventListener('click', closeFormPopup);
 };
 
-const closePopup = () => {
+const closeFormPopup = () => {
   imageEditPopup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscKeydown);
   page.classList.remove('modal-open');
-  imageEditPopupClose.removeEventListener('click', closePopup);
+  imageEditPopupClose.removeEventListener('click', closeFormPopup);
   uploadFile.value = '';
   hashtagInput.value = '';
   commentInput.value = '';
@@ -93,7 +94,8 @@ const closePopup = () => {
 
 const addUploadHandlers = () => {
   uploadFile.addEventListener('change', () => {
-    openPopup();
+    upload(uploadFile);
+    openFormPopup();
     addScaleHandlers();
     addImageEffects();
     addPropagation();
@@ -101,4 +103,4 @@ const addUploadHandlers = () => {
   });
 };
 
-export { addUploadHandlers, closePopup };
+export { addUploadHandlers, closeFormPopup };

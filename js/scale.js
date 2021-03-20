@@ -48,6 +48,7 @@ const addScaleHandlers = () => {
 const removeScaleHandlers = () => {
   imageSizeButtonBigger.removeEventListener('click', onIncreaseScale);
   imageSizeButtonSmaller.removeEventListener('click', onDecreaseScale);
+  imageSize.value = `${INITIAL_SCALE}%`;
 };
 
 export { addScaleHandlers, removeScaleHandlers };
