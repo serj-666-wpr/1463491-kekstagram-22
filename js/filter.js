@@ -11,9 +11,8 @@ const showFiltersBlock = () => {
   filtersBlock.classList.remove('img-filters--inactive');
 };
 
-const sortImagesByRandom = (images) => {
-  const imagesRandom = images.slice().sort(() => Math.random() - 0.5);
-  renderImages(imagesRandom.slice(0, RANDOM_IMAGES_COUNT));
+const sortImagesByRandom = () => {
+  return Math.random() - 0.5;
 }
 
 const sortImagesByDiscussion = (pictureA, pictureB) => {
@@ -45,7 +44,7 @@ const FilterType = {
 const renderImagesByFilter = (images, filterType) => {
   switch(filterType) {
     case FilterType.RANDOM:
-      sortImagesByRandom(images);
+      renderImages(images.slice().sort(sortImagesByRandom).slice(0, RANDOM_IMAGES_COUNT));
       break;
     case FilterType.DISCUSSED:
       renderImages(images.slice().sort(sortImagesByDiscussion));

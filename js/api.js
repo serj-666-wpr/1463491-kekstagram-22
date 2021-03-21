@@ -1,4 +1,4 @@
-import { showSuccess, showError, showTextMessage } from './message.js';
+import { showError, showTextMessage } from './message.js';
 
 const BASE_URL = 'https://22.javascript.pages.academy/kekstagram';
 
@@ -11,9 +11,8 @@ const sendForm = (formData, onSuccess) => {
     },
   )
     .then((response) => {
-      onSuccess();
       if (response.ok) {
-        showSuccess();
+        onSuccess();
         return;
       }
       throw new Error();

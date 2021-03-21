@@ -1,4 +1,5 @@
 import { isEscape } from './utils.js';
+import { closeFormPopup } from './download.js';
 
 const mainBlock = document.querySelector('main');
 
@@ -40,10 +41,12 @@ const showMessage = (messageType) => {
 }
 
 const showError = () => {
+  closeFormPopup();
   showMessage(MessageTypeTemplate.ERROR);
 }
 
 const showSuccess = () => {
+  closeFormPopup();
   showMessage(MessageTypeTemplate.SUCCESS);
 }
 
