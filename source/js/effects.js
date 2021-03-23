@@ -1,4 +1,6 @@
-/* global noUiSlider:readonly */
+import noUiSlider from 'nouislider';
+import 'nouislider/distribute/nouislider.css';
+
 const image = document.querySelector('.img-upload__preview img');
 const effects = document.querySelectorAll('.effects__radio');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
@@ -15,29 +17,6 @@ const MAX_RANGE_HEAT = 3;
 
 const SLIDER_STEP = 0.1;
 const SLIDER_STEP_MARVIN = 1;
-
-const createSlider = () => {
-  noUiSlider.create(slider, {
-    range: {
-      min: MIN_RANGE,
-      max: MAX_RANGE,
-    },
-    start: MAX_RANGE,
-    step: SLIDER_STEP,
-    connect: 'lower',
-    format: {
-      to: function (value) {
-        if (Number.isInteger(value)) {
-          return value.toFixed(0);
-        }
-        return value.toFixed(1);
-      },
-      from: function (value) {
-        return parseFloat(value);
-      },
-    },
-  });
-}
 
 const Filter = {
   DEFAULT: 'default',
@@ -85,6 +64,29 @@ const FilterSliderParams = {
     step: SLIDER_STEP,
   },
 };
+
+const createSlider = () => {
+  noUiSlider.create(slider, {
+    range: {
+      min: MIN_RANGE,
+      max: MAX_RANGE,
+    },
+    start: MAX_RANGE,
+    step: SLIDER_STEP,
+    connect: 'lower',
+    format: {
+      to: function (value) {
+        if (Number.isInteger(value)) {
+          return value.toFixed(0);
+        }
+        return value.toFixed(1);
+      },
+      from: function (value) {
+        return parseFloat(value);
+      },
+    },
+  });
+}
 
 const changeSliderParams = (effect) => {
   switch (effect) {

@@ -7,6 +7,11 @@ const filterButtons = filterForm.querySelectorAll('.img-filters__button');
 const DESCRIPTIONS_COUNT = 25;
 const RANDOM_IMAGES_COUNT = 10;
 
+const FilterType = {
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed',
+};
+
 const showFiltersBlock = () => {
   filtersBlock.classList.remove('img-filters--inactive');
 };
@@ -34,11 +39,6 @@ const addFilterChangeHandler = (callback) => {
       callback(id);
     }
   });
-};
-
-const FilterType = {
-  RANDOM: 'filter-random',
-  DISCUSSED: 'filter-discussed',
 };
 
 const renderImagesByFilter = (images, filterType) => {

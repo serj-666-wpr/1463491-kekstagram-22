@@ -3,6 +3,8 @@ import { closeFormPopup } from './download.js';
 
 const mainBlock = document.querySelector('main');
 
+const ERROR_POPUP_TIME = 5000;
+
 const MessageTypeTemplate = {
   SUCCESS: document.querySelector('#success').content.querySelector('.success').cloneNode(true),
   ERROR: document.querySelector('#error').content.querySelector('.error').cloneNode(true),
@@ -49,8 +51,6 @@ const showSuccess = () => {
   closeFormPopup();
   showMessage(MessageTypeTemplate.SUCCESS);
 }
-
-const ERROR_POPUP_TIME = 5000;
 
 const showTextMessage = (message) => {
   const errorPopup = document.createElement('div');
