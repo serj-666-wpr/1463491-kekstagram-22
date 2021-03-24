@@ -36,25 +36,18 @@ const validHashtags = () => {
       hashtagInput.setCustomValidity('');
     } else if (hashtag.length > MAX_HASHTAG_LENGTH) {
       hashtagInput.setCustomValidity(`Хеш-тег должен быть не длинее ${MAX_HASHTAG_LENGTH} символов`);
-      return true;
     } else if (hashtags.length > MAX_HASHTAGS_NUMBER) {
       hashtagInput.setCustomValidity(`Хеш-тегов должно быть не больше ${MAX_HASHTAGS_NUMBER}`);
-      return true;
     } else if (!(hashtag[0] === '#')) {
       hashtagInput.setCustomValidity('Хеш-тег должен начинаться с #');
-      return true;
     } else if (hashtag.length === 1) {
       hashtagInput.setCustomValidity('Хеш-тег не может сосотоять только из #');
-      return true;
     } else if (hashtag.includes('#', 1)) {
       hashtagInput.setCustomValidity('Хеш-теги разделяются пробелами');
-      return true;
     } else if (!ALLOWED_SYMBOLS.test(hashtag)) {
       hashtagInput.setCustomValidity('Хеш-тег не может содержать спецсимволов и знаков пунктуации');
-      return true;
     } else if (hashtags.slice(0, -1).includes(hashtag)) {
       hashtagInput.setCustomValidity('Хеш-теги не могут быть одинаковыми');
-      return true;
     } else {
       hashtagInput.setCustomValidity('');
     }
@@ -110,4 +103,4 @@ const addUploadHandlers = () => {
   });
 };
 
-export { addUploadHandlers, closeFormPopup, validHashtags };
+export { addUploadHandlers, closeFormPopup };
