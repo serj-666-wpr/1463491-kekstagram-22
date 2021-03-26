@@ -1,12 +1,6 @@
 import noUiSlider from 'nouislider';
 import 'nouislider/distribute/nouislider.css';
 
-const image = document.querySelector('.img-upload__preview img');
-const effects = document.querySelectorAll('.effects__radio');
-const sliderContainer = document.querySelector('.img-upload__effect-level');
-const slider = sliderContainer.querySelector('.effect-level__slider');
-const effectLevelValue = sliderContainer.querySelector('.effect-level__value');
-
 const MIN_RANGE = 0;
 const MIN_RANGE_HEAT = 1;
 
@@ -64,6 +58,12 @@ const FilterSliderParams = {
     step: SLIDER_STEP,
   },
 };
+
+const image = document.querySelector('.img-upload__preview img');
+const effects = document.querySelectorAll('.effects__radio');
+const sliderContainer = document.querySelector('.img-upload__effect-level');
+const slider = sliderContainer.querySelector('.effect-level__slider');
+const effectLevelValue = sliderContainer.querySelector('.effect-level__value');
 
 const createSlider = () => {
   noUiSlider.create(slider, {

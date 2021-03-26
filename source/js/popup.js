@@ -8,7 +8,7 @@ const popupClose = document.querySelector('#picture-cancel');
 const onPopupEscKeydown = (evt) => {
   if (isEscape(evt)) {
     evt.preventDefault();
-    closePopup();
+    onClosePopupClick();
   }
 };
 
@@ -16,14 +16,14 @@ const openPopup = () => {
   popup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscKeydown);
   page.classList.add('modal-open');
-  popupClose.addEventListener('click', closePopup);
+  popupClose.addEventListener('click', onClosePopupClick);
 };
 
-const closePopup = () => {
+const onClosePopupClick = () => {
   popup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscKeydown);
   page.classList.remove('modal-open');
-  popupClose.removeEventListener('click', closePopup);
+  popupClose.removeEventListener('click', onClosePopupClick);
   removeButtonCommentsHandler();
   resetValueCurrentCounter();
 };

@@ -1,6 +1,6 @@
-const preview = document.querySelector('.img-upload__preview img');
-
 const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
+const preview = document.querySelector('.img-upload__preview img');
 
 const initializeFileLoader = (imageFile) => {
   const image = imageFile.files[0];

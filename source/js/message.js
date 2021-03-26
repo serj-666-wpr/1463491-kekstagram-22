@@ -1,7 +1,5 @@
 import { isEscape } from './utils.js';
-import { closeFormPopup } from './download.js';
-
-const mainBlock = document.querySelector('main');
+import { onCloseFormPopupClick } from './download.js';
 
 const ERROR_POPUP_TIME = 5000;
 
@@ -10,13 +8,15 @@ const MessageTypeTemplate = {
   ERROR: document.querySelector('#error').content.querySelector('.error').cloneNode(true),
 }
 
+const mainBlock = document.querySelector('main');
+
 const showMessage = (messageType) => {
   const fillMessage = () => {
     mainBlock.appendChild(messageType);
 
     const buttonClosePopup = messageType.querySelector('button');
 
-    buttonClosePopup.addEventListener('click', closePopup);
+    buttonClosePopup.addEventListener('click', onClosePopupClick);
     document.addEventListener('keydown', onPopupEscKeydown);
     mainBlock.addEventListener('click', onCloseClickOutside);
   }
@@ -24,31 +24,33 @@ const showMessage = (messageType) => {
   const onPopupEscKeydown = (evt) => {
     if (isEscape(evt)) {
       evt.preventDefault();
-      closePopup();
+      onClosePopupClick();
     }
   };
 
-  const closePopup = () => {
+  const onClosePopupClick = () => {
     messageType.remove();
     document.removeEventListener('keydown', onPopupEscKeydown);
     mainBlock.removeEventListener('click', onCloseClickOutside);
   }
 
   const onCloseClickOutside = (evt) => {
-    if (!(evt.target === messageType)) return;
-    closePopup();
+    if (!(evt.target === messageType)) {
+      return;
+    }
+    onClosePopupClick();
   }
 
   fillMessage();
 }
 
 const showError = () => {
-  closeFormPopup();
+  onCloseFormPopupClick();
   showMessage(MessageTypeTemplate.ERROR);
 }
 
 const showSuccess = () => {
-  closeFormPopup();
+  onCloseFormPopupClick();
   showMessage(MessageTypeTemplate.SUCCESS);
 }
 

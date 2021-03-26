@@ -1,10 +1,10 @@
+const NUMBER_VISIBLE_COMMENTS = 5;
+
 const commentsList = document.querySelector('.social__comments');
 const commentTemplate = commentsList.querySelector('.social__comment');
 const commentsCounterBlock = document.querySelector('.social__comment-count');
 const commentsCurrentCounter = document.querySelector('.comments-current-count');
 const commentsLoader = document.querySelector('.comments-loader');
-
-const NUMBER_VISIBLE_COMMENTS = 5;
 
 const hideCommentsLoader = () => {
   const checkHidenComments = Array.from(commentsList.children).some((comment) => {
@@ -16,7 +16,7 @@ const hideCommentsLoader = () => {
   }
 };
 
-const addMoreComments = () => {
+const onCommentsLoaderClick = () => {
   let i = 0;
   let shownComments = 0;
 
@@ -39,11 +39,11 @@ const resetValueCurrentCounter = () => {
 };
 
 const addButtonCommentsHandler = () => {
-  commentsLoader.addEventListener('click', addMoreComments);
+  commentsLoader.addEventListener('click', onCommentsLoaderClick);
 };
 
 const removeButtonCommentsHandler = () => {
-  commentsLoader.removeEventListener('click', addMoreComments);
+  commentsLoader.removeEventListener('click', onCommentsLoaderClick);
 };
 
 const hideComments = (index, comment) => {

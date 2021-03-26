@@ -1,9 +1,5 @@
 import { renderImages } from './render.js';
 
-const filtersBlock = document.querySelector('.img-filters');
-const filterForm = document.querySelector('.img-filters__form');
-const filterButtons = filterForm.querySelectorAll('.img-filters__button');
-
 const DESCRIPTIONS_COUNT = 25;
 const RANDOM_IMAGES_COUNT = 10;
 
@@ -11,6 +7,10 @@ const FilterType = {
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed',
 };
+
+const filtersBlock = document.querySelector('.img-filters');
+const filterForm = document.querySelector('.img-filters__form');
+const filterButtons = filterForm.querySelectorAll('.img-filters__button');
 
 const showFiltersBlock = () => {
   filtersBlock.classList.remove('img-filters--inactive');
